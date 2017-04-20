@@ -39,56 +39,24 @@ int main() {
   mediana = minn-1;
 
   ///main
-  int a=0,b=n,sr;
-  bool change = true;
-  //1
-  while (change && mediana<minn) {
-    sr = (a+b)/2;
-    if (sr==a) change = false;
-    int mniej = mniejszych(0,tab[0][sr],n) + mniejszych(1,tab[0][sr],n) + mniejszych(2,tab[0][sr],n);
-    int rowny= rownych(0,tab[0][sr],n) + rownych(1,tab[0][sr],n) + rownych(2,tab[0][sr],n);
-    int wieks = wiekszych(0,tab[0][sr],n) + wiekszych(1,tab[0][sr],n) + wiekszych(2,tab[0][sr],n);
-    // printf("%d\n%d | %d | %d\n\n",tab[0][sr],mniej,rowny,wieks);
-    if (mniej<=((3*n)+1)/2-1 && mniej+rowny>=((3*n)+1)/2) mediana = tab[0][sr];
-    else if (mniej>wieks) {b=sr;maxx=tab[0][sr];}
-    else {a=sr;minn=tab[0][sr];}
-  }
-
-  //2
-  a=0,b=n;
-  change = true;
-  while (change && mediana<minn) {
-    sr = (a+b)/2;
-    if (sr==a) change = false;
-    if (tab[1][sr]<=minn) a=sr;
-    else if (tab[1][sr]>=maxx) b=sr;
-    else {
-      int mniej = mniejszych(0,tab[1][sr],n) + mniejszych(1,tab[1][sr],n) + mniejszych(2,tab[1][sr],n);
-      int rowny = rownych(0,tab[1][sr],n) + rownych(1,tab[1][sr],n) + rownych(2,tab[1][sr],n);
-      int wieks = wiekszych(0,tab[1][sr],n) + wiekszych(1,tab[1][sr],n) + wiekszych(2,tab[1][sr],n);
-      // printf("%d\n%d | %d | %d\n\n",tab[1][sr],mniej,rowny,wieks);
-      if (mniej<=((3*n)+1)/2-1  && mniej+rowny>=((3*n)+1)/2) mediana = tab[1][sr];
-      else if(mniej>wieks) {b=sr;maxx=tab[1][sr];}
-      else {a=sr;minn=tab[1][sr];}
-    }
-  }
-
-  //3
-  a=0,b=n;
-  change = true;
-  while (change && mediana<minn) {
-    sr = (a+b)/2;
-    if (sr==a) change = false;
-    if (tab[2][sr]<=minn) a=sr;
-    else if (tab[2][sr]>=maxx) b=sr;
-    else {
-      int mniej = mniejszych(0,tab[2][sr],n) + mniejszych(1,tab[2][sr],n) + mniejszych(2,tab[2][sr],n);
-      int rowny = rownych(0,tab[2][sr],n) + rownych(1,tab[2][sr],n) + rownych(2,tab[2][sr],n);
-      int wieks = wiekszych(0,tab[2][sr],n) + wiekszych(1,tab[2][sr],n) + wiekszych(2,tab[2][sr],n);
-      // printf("%d\n%d | %d | %d\n\n",tab[2][sr],mniej,rowny,wieks);
-      if (mniej<=((3*n)+1)/2-1  && mniej+rowny>=((3*n)+1)/2) mediana = tab[2][sr];
-      else if (mniej>wieks) {b=sr;maxx=tab[2][sr];}
-      else {a=sr;minn=tab[2][sr];}
+  int a,b,sr;
+  bool change;
+  for (int i=0;i<3;i++) {
+    a=0,b=n;
+    change = true;
+    while (change && mediana<minn) {
+      sr = (a+b)/2;
+      if (sr==a) change = false;
+      if (tab[i][sr]<=minn) a=sr;
+      else if (tab[i][sr]>=maxx) b=sr;
+      else {
+        int mniej = mniejszych(0,tab[i][sr],n) + mniejszych(1,tab[i][sr],n) + mniejszych(2,tab[i][sr],n);
+        int rowny = rownych(0,tab[i][sr],n) + rownych(1,tab[i][sr],n) + rownych(2,tab[i][sr],n);
+        int wieks = wiekszych(0,tab[i][sr],n) + wiekszych(1,tab[i][sr],n) + wiekszych(2,tab[i][sr],n);
+        if (mniej<=((3*n)+1)/2-1  && mniej+rowny>=((3*n)+1)/2) mediana = tab[i][sr];
+        else if(mniej>wieks) {b=sr;maxx=tab[i][sr];}
+        else {a=sr;minn=tab[i][sr];}
+      }
     }
   }
 
